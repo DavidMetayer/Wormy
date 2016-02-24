@@ -8,3 +8,6 @@ and open the template in the editor.
     Author     : c0641903
 */
 
+table, td {
+    border: 1px solid black;
+}
