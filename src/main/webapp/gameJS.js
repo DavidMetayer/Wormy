@@ -5,9 +5,10 @@
  */
 var row = "";
 for (a = 0; a < 50; a++) {
-    row += "<tr>";
+    row += "<tr>"
     for (b = 0; b < 50; b++) {
-        row += "<td>*</td>";
+        coord = a + b;
+        row += "<td id=\"" + coord + "\">*</td>";
     }
     row += "</tr>";
 }
