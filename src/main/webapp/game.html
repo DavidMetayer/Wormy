@@ -15,11 +15,12 @@ and open the template in the editor.
         </table>
         <script>
             var row = "";
+            var coord = 0;
             for (a = 0; a < 50; a++) {
                 row += "<tr>";
                 for (b = 0; b < 50; b++) {
-                    coord = a + b;
                     row += "<td id=\"" + coord + "\">*</td>";
+                    coord += 1;
                 }
                 row += "</tr>";
             }
