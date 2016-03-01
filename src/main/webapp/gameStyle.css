@@ -9,16 +9,15 @@ and open the template in the editor.
 */
 
 table {
-	background-color: grey;
-	
+    background-color: grey;
 }
 td {
     padding: 6px;
-	background-color: black;
+    background-color: black;
 }
 #g0, #g1, #g2 {
-	background-color: red;
+    background-color: red;
 }
 #g2497, #g2498, #g2499 {
-	background-color: cyan;
+    background-color: cyan;
 }

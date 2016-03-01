@@ -32,6 +32,28 @@ and open the template in the editor.
                 row += "</tr>";
             }
             document.getElementById("board").innerHTML = row;
+            
+            // Key Events
+            // Have to send key data to Java code to determine what action to take.
+            document.onkeydown = function(e) {
+                e = e || window.event;
+                switch(e.which || e.keyCode) {
+                    case 37: // Left
+                    break;
+
+                    case 38: // Up
+                    break;
+
+                    case 39: // Right
+                    break;
+
+                    case 40: // Down
+                    break;
+
+                    default: return; // Exit this handler for other keys
+                }
+                e.preventDefault(); // Prevent the default action (scroll / move caret)
+            };
         </script>
     </body>
 </html>
