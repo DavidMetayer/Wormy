@@ -8,12 +8,17 @@ and open the template in the editor.
     Author     : c0641903
 */
 
-table, td {
-    border: 1px solid black;
+table {
+	background-color: grey;
+	
 }
 td {
-    padding: 5px;
+    padding: 6px;
+	background-color: black;
 }
-td #34 {
-    background-color: red;
+#g0, #g1, #g2 {
+	background-color: red;
+}
+#g2497, #g2498, #g2499 {
+	background-color: cyan;
 }

@@ -20,12 +20,11 @@ and open the template in the editor.
             for (a = 0; a < 50; a++) {
                 row += "<tr>";
                 for (b = 0; b < 50; b++) {
-                    row += "<td id=\"" + coord + "\"></td>";
+                    row += "<td id=\"g" + coord + "\"></td>";
                     coord += 1;
                 }
                 row += "</tr>";
             }
-
             document.getElementById("board").innerHTML = row;
         </script>
     </body>
