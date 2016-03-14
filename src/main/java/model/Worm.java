@@ -15,12 +15,29 @@ import java.util.List;
 public class Worm {
     private int position;
     private List<Integer> coords = new ArrayList<>();
+    
     public int moveLeft(){
         if (coords.get(0) % 50 != 0){
             position = coords.get(0) - 1;
         } else {
             position = coords.get(0);
         }
-        return getPosition(); // Don't worry about this right now. Just planning the logic.
+      //  return getPosition(); // Don't worry about this right now. Just planning the logic.
+        return 0;
     }
+    
+    public int moveRight(){
+        String positionString = Integer.toString(coords.get(0));
+        if(positionString.endsWith("49") != true || positionString.endsWith("99") != true){
+            position = coords.get(0) + 1;
+        }
+        else{
+            position = coords.get(0);
+        }
+        
+        //return getPosition(); // Don't worry about this right now. Just planning the logic.
+        
+        return 0;
+    }
+    
 }
