@@ -35,6 +35,7 @@ and open the template in the editor.
             
             // Key Events
             // Have to send key data to Java code to determine what action to take.
+            // https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/prog_guide/javascript.html
             document.onkeydown = function(e) {
                 e = e || window.event;
                 switch(e.which || e.keyCode) {

@@ -13,64 +13,132 @@ import java.util.List;
  * @author c0641903
  */
 public class Worm {
-    private boolean alive;
-    private int movement;
+    private boolean status;
+    private int direction;
     private int position;
-    private int prevEndPos;
-    private List<Integer> coords = new ArrayList<>();
+    private int previousEndPosition;
+    private List<Integer> coordinates;
     
-    public void setInitialCoords(int c1, int c2, int c3){
-        coords.add(c1);
-        coords.add(c2);
-        coords.add(c3);
+    public Worm() {
+        status = true;
+        direction = 0;
+        position = 0;
+        previousEndPosition = 0;
+        coordinates = new ArrayList<>();
     }
-    public String getPosition(){
-        return "g" + position;
+    public Worm(boolean status, int direction, int position, int previousEndPosition, int coord1, int coord2, int coord3) {
+        this.status = status;
+        this.direction = direction;
+        this.position = position;
+        this.previousEndPosition = previousEndPosition;
+        coordinates = new ArrayList<>();
+        coordinates.add(coord1);
+        coordinates.add(coord2);
+        coordinates.add(coord3);
     }
-    public void moveUp(){
-        movement = -50;
+    
+    public void setStatus(boolean status) {
+        this.status = status;
     }
-    public void moveRight(){
-        movement = 1;
+    public boolean getStatus() {
+        return status;
     }
-    public void moveDown(){
-        movement = 50;
-    }
-    public void moveLeft(){
-        movement = -1;
-    }
-    public void move(){
+    public void checkStatus(Worm otherWorm) {
         String positionString = Integer.toString(position);
-        // May cause an error.
-        if (position < 50 && movement == -50){
-            alive = false;
-        } else if ((positionString.endsWith("49") || positionString.endsWith("99")) && movement == 1){
-            alive = false;
-        } else if (position > 2449 && movement == 50){
-            alive = false;
-        } else if (position % 50 == 0 && movement == -1){
-            alive = false;
+        if (position < 50 && direction == -50) {
+            status = false;
+        } else if ((positionString.endsWith("49") || positionString.endsWith("99")) && direction == 1) {
+            status = false;
+        } else if (position > 2449 && direction == 50) {
+            status = false;
+        } else if (position % 50 == 0 && direction == -1) {
+            status = false;
+        } else if (otherWorm.getCoordinates().contains(position)) {
+            status = false;
         } else {
-            int coordA = coords.get(0);
-            int coordB;
-            position += movement;
-            coords.set(0, position);
-            // May cause an error.
-            for (int a = 1; a < coords.size()-1; a++){
-                coordB = coords.get(a);
-                coords.set(a, coordA);
-                coordA = coordB;
-            }
-            prevEndPos = coordA;
+            status = true;
         }
     }
-    public String getCoord(int index){
-        return "g" + coords.get(index);
+    
+    public void setDirection(int direction) {
+        this.direction = direction;
     }
-    public void grow(){
-        coords.add(prevEndPos);
+    public int getDirection(){
+        return direction;
     }
-    public boolean getStatus(){
-        return alive;
+    // Either this...
+    public void changeDirection(int direction) {
+        switch (direction) {
+            case 37:
+                direction = -1;
+                break;
+            case 38:
+                direction = -50;
+                break;
+            case 39:
+                direction = 1;
+                break;
+            case 40:
+                direction = 50;
+                break;
+            default:
+                break;
+        }
+    }
+    // Or these...
+    public void moveUp() {
+        direction = -50;
+    }
+    public void moveRight() {
+        direction = 1;
+    }
+    public void moveDown() {
+        direction = 50;
+    }
+    public void moveLeft() {
+        direction = -1;
+    }
+    public int getMovement() {
+        return direction;
+    }
+    
+    public void setPosition(int position) {
+        this.position = position;
+    }
+    public int getPosition() {
+        return position;
+    }
+    public void changePosition() {
+        int coordA = coordinates.get(0);
+        int coordB;
+        position += direction;
+        coordinates.set(0, position);
+        // May cause an error.
+        for (int a = 1; a < coordinates.size()-1; a++) {
+            coordB = coordinates.get(a);
+            coordinates.set(a, coordA);
+            coordA = coordB;
+        }
+        previousEndPosition = coordA;
+    }
+    
+    public void setPreviousEndPosition(int previousEndPosition) {
+        this.previousEndPosition = previousEndPosition;
+    }
+    public int getPreviousEndPosition() {
+        return previousEndPosition;
+    }
+    
+    public void setCoordinate(int index, int coord) {
+        coordinates.set(index, coord);
+    }
+    public int getCoordinate(int index) {
+        return coordinates.get(index);
+    }
+    public List getCoordinates() {
+        return coordinates;
+    }
+    public void addCoordinate() {
+        coordinates.add(previousEndPosition);
     }
 }
