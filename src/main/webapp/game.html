@@ -50,6 +50,9 @@ and open the template in the editor.
                 switch(e.which || e.keyCode) {
                     case 37: // Left
                         //TODO: call moveLeft();
+                        //TODO: getCoordinate()-1;
+                        var head = this.getElementById((this.getCoordinate()-1))
+                        document.getElementById(head).style.background-color(this.getColor());
                     break;
 
                     case 38: // Up

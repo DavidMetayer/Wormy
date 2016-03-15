@@ -124,6 +124,7 @@ public class Worm {
     }
     
     // PreviousEndPosition Methods
+ 
     public void setPreviousEndPosition(int previousEndPosition) {
         this.previousEndPosition = previousEndPosition;
     }
