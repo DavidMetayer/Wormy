@@ -19,6 +19,19 @@ public class Pellet {
     private int position;
     private String eatenBy;
     
+    // Constructors
+    public Pellet() {
+        status = true;
+        position = 0;
+        eatenBy = "";
+    }
+    public Pellet(boolean status, int position, String eatenBy) {
+        this.status = status;
+        this.position = position;
+        this.eatenBy = eatenBy;
+    }
+    
+    // Status Methods
     public void setStatus(boolean status) {
         this.status = status;
     }
@@ -35,6 +48,7 @@ public class Pellet {
         }
     }
     
+    // Position Methods
     public void setPosition(int position) {
         this.position = position;
     }
@@ -49,6 +63,7 @@ public class Pellet {
                 worm2.getCoordinates().contains(position) == false);
     }
     
+    // EatenBy Methods
     public void setEatenBy(String eatenBy) {
         this.eatenBy = eatenBy;
     }
