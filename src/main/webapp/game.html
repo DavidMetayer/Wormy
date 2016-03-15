@@ -16,6 +16,7 @@ and open the template in the editor.
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
         <link rel="stylesheet" href="gameStyle.css">
     </head>
     <body>
@@ -33,11 +34,9 @@ and open the template in the editor.
                 row += "</tr>";
             }
             document.getElementById("board").innerHTML = row;
-            document.getElementById("g34").backgroundcolor = "blue";
             
             // Key Events
             // Have to send key data to Java code to determine what action to take.
-            // https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/prog_guide/javascript.html
             //TODO: Worm redWorm = new Worm();
             //TODO: Worm cyanWorm = new Worm();
             //TODO: Pellet eat = new Pellet();

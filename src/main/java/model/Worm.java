@@ -156,4 +156,9 @@ public class Worm {
     public void addCoordinate() {
         coordinates.add(previousEndPosition);
     }
+    
+    // http://stackoverflow.com/questions/9033166/multiplayer-javascript-game-built-with-node-js-separating-players/9035404#9035404
+    // http://www.websocket.org/echo.html
+    // http://socket.io/get-started/chat/
+    // https://jquery.com/
 }

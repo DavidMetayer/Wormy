@@ -16,17 +16,20 @@ import java.util.List;
  */
 public class Pellet {
     private boolean status;
+    private String colour;
     private int position;
     private String eatenBy;
     
     // Constructors
     public Pellet() {
         status = true;
+        colour = "";
         position = 0;
         eatenBy = "";
     }
-    public Pellet(boolean status, int position, String eatenBy) {
+    public Pellet(boolean status, String colour, int position, String eatenBy) {
         this.status = status;
+        this.colour = colour;
         this.position = position;
         this.eatenBy = eatenBy;
     }
@@ -46,6 +49,13 @@ public class Pellet {
             eatenBy = "blueWorm";
             status = false;
         }
+    }
+    
+    public void setColour(String colour) {
+        this.colour = colour;
+    }
+    public String getColour() {
+        return colour;
     }
     
     // Position Methods
