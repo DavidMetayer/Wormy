@@ -57,14 +57,20 @@ and open the template in the editor.
 
                     case 38: // Up
                         //TODO: call moveUp();
+                        var head = this.getElementById((this.getCoordinate()-50))
+                        document.getElementById(head).style.background-color(this.getColor());
                     break;
 
                     case 39: // Right
                         //TODO: call moveRight();
+                        var head = this.getElementById((this.getCoordinate()+1))
+                        document.getElementById(head).style.background-color(this.getColor());
                     break;
 
                     case 40: // Down
                         //TODO: call moveDown();
+                        var head = this.getElementById((this.getCoordinate()-50))
+                        document.getElementById(head).style.background-color(this.getColor());
                     break;
 
                     default: return; // Exit this handler for other keys
