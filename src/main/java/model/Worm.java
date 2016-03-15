@@ -19,6 +19,7 @@ public class Worm {
     private int previousEndPosition;
     private List<Integer> coordinates;
     
+    // Constructors
     public Worm() {
         status = true;
         direction = 0;
@@ -37,6 +38,7 @@ public class Worm {
         coordinates.add(coord3);
     }
     
+    // Status Methods
     public void setStatus(boolean status) {
         this.status = status;
     }
@@ -60,6 +62,7 @@ public class Worm {
         }
     }
     
+    // Direction Methods
     public void setDirection(int direction) {
         this.direction = direction;
     }
@@ -99,6 +102,7 @@ public class Worm {
         direction = -1;
     }
     
+    // Position Methods
     public void setPosition(int position) {
         this.position = position;
     }
@@ -119,6 +123,7 @@ public class Worm {
         previousEndPosition = coordA;
     }
     
+    // PreviousEndPosition Methods
     public void setPreviousEndPosition(int previousEndPosition) {
         this.previousEndPosition = previousEndPosition;
     }
@@ -126,6 +131,7 @@ public class Worm {
         return previousEndPosition;
     }
     
+    // Coordinates Methods
     public void setCoordinate(int index, int coord) {
         coordinates.set(index, coord);
     }
