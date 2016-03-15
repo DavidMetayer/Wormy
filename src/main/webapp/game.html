@@ -10,6 +10,7 @@ and open the template in the editor.
     Left: -1
     Right: +1
 -->
+
 <html>
     <head>
         <title>TODO supply a title</title>
@@ -36,24 +37,39 @@ and open the template in the editor.
             // Key Events
             // Have to send key data to Java code to determine what action to take.
             // https://docs.oracle.com/javase/8/docs/technotes/guides/scripting/prog_guide/javascript.html
+            //TODO: Worm redWorm = new Worm();
+            //TODO: Worm cyanWorm = new Worm();
+            //TODO: Pellet eat = new Pellet();
+            //TODO: start GameLoop; -- Always check for endGame();
+            //TODO: Spawn Pellet
+            //TODO: Start moving worms
+            
+    
             document.onkeydown = function(e) {
                 e = e || window.event;
                 switch(e.which || e.keyCode) {
                     case 37: // Left
+                        //TODO: call moveLeft();
                     break;
 
                     case 38: // Up
+                        //TODO: call moveUp();
                     break;
 
                     case 39: // Right
+                        //TODO: call moveRight();
                     break;
 
                     case 40: // Down
+                        //TODO: call moveDown();
                     break;
 
                     default: return; // Exit this handler for other keys
                 }
                 e.preventDefault(); // Prevent the default action (scroll / move caret)
+                
+                
+                //TODO end GameLoop;
             };
         </script>
     </body>

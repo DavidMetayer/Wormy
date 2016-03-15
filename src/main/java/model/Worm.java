@@ -98,9 +98,6 @@ public class Worm {
     public void moveLeft() {
         direction = -1;
     }
-    public int getMovement() {
-        return direction;
-    }
     
     public void setPosition(int position) {
         this.position = position;
