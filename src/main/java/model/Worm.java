@@ -14,6 +14,7 @@ import java.util.List;
  */
 public class Worm {
     private boolean status;
+    private String colour;
     private int direction;
     private int position;
     private int previousEndPosition;
@@ -22,13 +23,15 @@ public class Worm {
     // Constructors
     public Worm() {
         status = true;
+        colour = "";
         direction = 0;
         position = 0;
         previousEndPosition = 0;
         coordinates = new ArrayList<>();
     }
-    public Worm(boolean status, int direction, int position, int previousEndPosition, int coord1, int coord2, int coord3) {
+    public Worm(boolean status, String colour, int direction, int position, int previousEndPosition, int coord1, int coord2, int coord3) {
         this.status = status;
+        this.colour = colour;
         this.direction = direction;
         this.position = position;
         this.previousEndPosition = previousEndPosition;
@@ -60,6 +63,14 @@ public class Worm {
         } else {
             status = true;
         }
+    }
+    
+    // Colour Methods
+    public void setColour(String colour) {
+        this.colour = colour;
+    }
+    public String getColour() {
+        return colour;
     }
     
     // Direction Methods
