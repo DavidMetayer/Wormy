@@ -13,42 +13,112 @@ import java.util.List;
  * @author c0641903
  */
 public class Worm {
-    private boolean status;
+    
+    // Attributes
+    private Player player;
     private String colour;
     private int direction;
+    private boolean status;
     private int position;
-    private int previousEndPosition;
-    private List<Integer> coordinates;
+    private int lastTailPosition;
+    private List<Integer> segments;
     
     // Constructors
     public Worm() {
-        status = true;
+        player = new Player();
+        status = false;
         colour = "";
         direction = 0;
         position = 0;
-        previousEndPosition = 0;
-        coordinates = new ArrayList<>();
+        lastTailPosition = 0;
+        segments = new ArrayList<>();
     }
-    public Worm(boolean status, String colour, int direction, int position, int previousEndPosition, int coord1, int coord2, int coord3) {
+    public Worm(Player player, boolean status, String colour, int direction, int position, int lastTailPosition, List<Integer> segments) {
+        this.player = player;
         this.status = status;
         this.colour = colour;
         this.direction = direction;
         this.position = position;
-        this.previousEndPosition = previousEndPosition;
-        coordinates = new ArrayList<>();
-        coordinates.add(coord1);
-        coordinates.add(coord2);
-        coordinates.add(coord3);
+        this.lastTailPosition = lastTailPosition;
+        this.segments = segments;
+    }
+
+    // Player Getter/Setter
+    public Player getPlayer() {
+        return player;
+    }
+    public void setPlayer(Player player) {
+        this.player = player;
     }
     
-    // Status Methods
-    public void setStatus(boolean status) {
-        this.status = status;
+    // Colour Getter/Setter
+    public String getColour() {
+        return colour;
     }
+    public void setColour(String colour) {
+        this.colour = colour;
+    }
+
+    // Direction Getter/Setter
+    public int getDirection() {
+        return direction;
+    }
+    public void setDirection(int direction) {
+        this.direction = direction;
+    }
+    
+    // Status Getter/Setter
     public boolean getStatus() {
         return status;
     }
-    public void checkStatus(Worm otherWorm) {
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    // Position Getter/Setter
+    public int getPosition() {
+        return position;
+    }
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    // Last Tail Position Getter/Setter
+    public int getLastTailPosition() {
+        return lastTailPosition;
+    }
+    public void setLastTailPosition(int lastTailPosition) {
+        this.lastTailPosition = lastTailPosition;
+    }
+
+    // Segments Getter/Setter
+    public List<Integer> getSegments() {
+        return segments;
+    }
+    public void setSegments(List<Integer> segments) {
+        this.segments = segments;
+    }
+    
+    // Misc. Methods
+    public void changeDirection(int direction) {
+        switch (direction) {
+            case 37:
+                this.direction = -1;
+                break;
+            case 38:
+                this.direction = -50;
+                break;
+            case 39:
+                this.direction = 1;
+                break;
+            case 40:
+                this.direction = 50;
+                break;
+            default:
+                break;
+        }
+    }
+    public void changeStatus(Worm opponent) {
         String positionString = Integer.toString(position);
         if (position < 50 && direction == -50) {
             status = false;
@@ -58,107 +128,30 @@ public class Worm {
             status = false;
         } else if (position % 50 == 0 && direction == -1) {
             status = false;
-        } else if (otherWorm.getCoordinates().contains(position)) {
+        } else if (opponent.getSegments().contains(position + direction)) {
             status = false;
-        } else {
-            status = true;
         }
-    }
-    
-    // Colour Methods
-    public void setColour(String colour) {
-        this.colour = colour;
-    }
-    public String getColour() {
-        return colour;
-    }
-    
-    // Direction Methods
-    public void setDirection(int direction) {
-        this.direction = direction;
-    }
-    public int getDirection(){
-        return direction;
-    }
-    // Either this...
-    public void changeDirection(int direction) {
-        switch (direction) {
-            case 37:
-                direction = -1;
-                break;
-            case 38:
-                direction = -50;
-                break;
-            case 39:
-                direction = 1;
-                break;
-            case 40:
-                direction = 50;
-                break;
-            default:
-                break;
-        }
-    }
-    // Or these...
-    public void moveUp() {
-        direction = -50;
-    }
-    public void moveRight() {
-        direction = 1;
-    }
-    public void moveDown() {
-        direction = 50;
-    }
-    public void moveLeft() {
-        direction = -1;
-    }
-    
-    // Position Methods
-    public void setPosition(int position) {
-        this.position = position;
-    }
-    public int getPosition() {
-        return position;
     }
     public void changePosition() {
-        int coordA = coordinates.get(0);
-        int coordB;
         position += direction;
-        coordinates.set(0, position);
-        // May cause an error.
-        for (int a = 1; a < coordinates.size()-1; a++) {
-            coordB = coordinates.get(a);
-            coordinates.set(a, coordA);
-            coordA = coordB;
+    }
+    public void changeSize(Pellet p1, Pellet p2, Pellet p3) {
+        if (position == p1.getPosition() || position == p2.getPosition() || position == p3.getPosition()) {
+            segments.add(lastTailPosition);
         }
-        previousEndPosition = coordA;
+    }
+    public void changeLastTailPosition() {
+        lastTailPosition = segments.get(segments.size() - 1);
+    }
+    public void changeSegments() {
+        int newSegment;
+        int currentSegment;
+        newSegment = position;
+        for (int segment : segments) {
+            currentSegment = segments.get(segment);
+            segments.set(segment, newSegment);
+            newSegment = currentSegment;
+        }
     }
     
-    // PreviousEndPosition Methods
- 
-    public void setPreviousEndPosition(int previousEndPosition) {
-        this.previousEndPosition = previousEndPosition;
-    }
-    public int getPreviousEndPosition() {
-        return previousEndPosition;
-    }
-    
-    // Coordinates Methods
-    public void setCoordinate(int index, int coord) {
-        coordinates.set(index, coord);
-    }
-    public int getCoordinate(int index) {
-        return coordinates.get(index);
-    }
-    public List getCoordinates() {
-        return coordinates;
-    }
-    public void addCoordinate() {
-        coordinates.add(previousEndPosition);
-    }
-    
-    // http://stackoverflow.com/questions/9033166/multiplayer-javascript-game-built-with-node-js-separating-players/9035404#9035404
-    // http://www.websocket.org/echo.html
-    // http://socket.io/get-started/chat/
-    // https://jquery.com/
 }

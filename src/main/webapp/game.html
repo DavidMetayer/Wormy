@@ -44,11 +44,12 @@ and open the template in the editor.
             //TODO: Spawn Pellet
             //TODO: Start moving worms
             
+            var LEFT_KEY = 37;
     
             document.onkeydown = function(e) {
                 e = e || window.event;
                 switch(e.which || e.keyCode) {
-                    case 37: // Left
+                    case LEFT_KEY: // Left
                         //TODO: call moveLeft();
                         //TODO: getCoordinate()-1;
                         var head = this.getElementById((this.getCoordinate()-1))
