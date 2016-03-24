@@ -5,12 +5,10 @@
  */
 package model;
 
-import java.util.List;
-
 /**
  *
  * @author c0641903
  */
 public class Players {
-    private List<Integer> players;
+    
 }
