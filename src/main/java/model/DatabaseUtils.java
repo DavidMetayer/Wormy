@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package model;
 
 import java.io.UnsupportedEncodingException;
@@ -18,9 +19,13 @@ import java.util.logging.Logger;
  *
  * @author c0641903
  */
+
 public class DatabaseUtils {
+    
+    // Salt Variable
     public final static String salt = "THISISArandomSTRINGofCHARACTERSusedTOsaltTHEpasswords";
     
+    // Password Hashing Method
     public static String hash(String password) {
         try {
             String saltedPassword = password + salt;
@@ -40,6 +45,8 @@ public class DatabaseUtils {
             return null;
         }
     }
+    
+    // Database Connection Method
     public static Connection connect() throws SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
@@ -55,4 +62,5 @@ public class DatabaseUtils {
         String password = System.getenv("OPENSHIFT_MYSQL_DB_PASSWORD");
         return DriverManager.getConnection(jdbc, username, password);
     }
+    
 }

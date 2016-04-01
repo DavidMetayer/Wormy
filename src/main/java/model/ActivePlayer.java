@@ -3,29 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package model;
 
-enum PlayerStatus {IDLE, READY, PLAYING}
 /**
  *
  * @author c0641903
  */
+
 public class ActivePlayer {
-    private Player player;
-    private PlayerStatus playerStatus;
-    private boolean loginStatus;
     
+    // Attributes
+    private Player player;
+    private String name;
+    private String password;
+    private boolean status;
+    
+    // Constructors
     public ActivePlayer() {
         player = null;
-        playerStatus = null;
-        loginStatus = false;
+        name = "";
+        password = "";
+        status = false;
     }
-    public ActivePlayer(Player player, PlayerStatus playerStatus, boolean loginStatus) {
+    public ActivePlayer(Player player, String name, String password, boolean status) {
         this.player = player;
-        this.playerStatus = playerStatus;
-        this.loginStatus = loginStatus;
+        this.name = name;
+        this.password = password;
+        this.status = status;
     }
 
+    // Player Getter/Setter
     public Player getPlayer() {
         return player;
     }
@@ -33,18 +41,45 @@ public class ActivePlayer {
         this.player = player;
     }
 
-    public PlayerStatus getPlayerStatus() {
-        return playerStatus;
+    // Name Getter/Setter
+    public String getName() {
+        return name;
     }
-    public void setPlayerStatus(PlayerStatus playerStatus) {
-        this.playerStatus = playerStatus;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public boolean getLoginStatus() {
-        return loginStatus;
+    // Password Getter/Setter
+    public String getPassword() {
+        return password;
     }
-    public void setLoginStatus(boolean loginStatus) {
-        this.loginStatus = loginStatus;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+    
+    // Status Getter/Setter
+    public boolean getStatus() {
+        return status;
+    }
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    
+    // Misc. Methods
+    public String login() {
+        String hashedPassword = DatabaseUtils.hash(password);
+
+        for (Player selectedPlayer : Players.getInstance().getPlayers()) {
+            if (name.equals(selectedPlayer.getName())
+                    && hashedPassword.equals(selectedPlayer.getHashedPassword())) {
+                status = true;
+                player = selectedPlayer;
+                return "index";
+            }
+        }
+        player = null;
+        status = false;
+        return "index";
     }
     
 }

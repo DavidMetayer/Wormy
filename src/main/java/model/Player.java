@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package model;
 
 /**
  *
  * @author c0641903
  */
+
 public class Player {
     
     // Attributes
@@ -26,7 +28,7 @@ public class Player {
         losses = 0;
         winLossRatio = 0;
     }
-    public Player(String name, String hashedPassword, String status, int wins, int losses, double winLossRatio) {
+    public Player(String name, String hashedPassword, int wins, int losses, double winLossRatio) {
         this.name = name;
         this.hashedPassword = hashedPassword;
         this.wins = wins;
@@ -49,7 +51,7 @@ public class Player {
     public void setHashedPassword(String hashedPassword) {
         this.hashedPassword = hashedPassword;
     }
-
+    
     // Wins Getter/Setter
     public int getWins() {
         return wins;

@@ -3,52 +3,55 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package model;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+package model;
 
 /**
  *
  * @author c0641903
  */
+
 public class NewPlayer {
+    
+    // Attributes
     private String name;
     private String password;
-    private String passwordConfirm;
+    private String confirmedPassword;
 
+    // Constructors
     public NewPlayer() {
         name = "";
         password = "";
-        passwordConfirm = "";
+        confirmedPassword = "";
     }
-    
+    public NewPlayer(String name, String password, String confirmedPassword, Player player) {
+        this.name = name;
+        this.password = password;
+        this.confirmedPassword = confirmedPassword;
+    }
+
+    // Name Getter/Setter
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
 
+    // Password Getter/Setter
     public String getPassword() {
         return password;
     }
-
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public String getPasswordConfirm() {
-        return passwordConfirm;
+    // Confirmed Password Getter/Setter
+    public String getConfirmedPassword() {
+        return confirmedPassword;
     }
-
-    public void setPasswordConfirm(String passwordConfirm) {
-        this.passwordConfirm = passwordConfirm;
+    public void setConfirmedPassword(String confirmedPassword) {
+        this.confirmedPassword = confirmedPassword;
     }
-    
     
 }
