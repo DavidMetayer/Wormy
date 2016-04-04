@@ -29,8 +29,8 @@ public class Games {
 
     // Constructors
     public Games() {
-        games = new ArrayList<>();
-        game = null;
+        game = new Game("", "", null, null, null, null, null);
+        retrieveGames();
     }
     public Games(List<Game> games, Game game) {
         this.games = games;
