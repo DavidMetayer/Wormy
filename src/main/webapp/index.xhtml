@@ -14,13 +14,15 @@
         <h2>
             Testing
         </h2>
-        <h:dataTable value="#{games.games}" var="game">
-            <h:column>
-                <h:commandLink action="#{games.joinGame(game)}">
-                    #{game.host}
-                </h:commandLink>
-            </h:column>
-        </h:dataTable>
+        <h:form>
+            <h:dataTable value="#{games.games}" var="game">
+                <h:column>
+                    <h:commandLink action="#{games.joinGame(game)}">
+                        #{game.host}
+                    </h:commandLink>
+                </h:column>
+            </h:dataTable>
+        </h:form>
     </h:body>
 </html>
 
