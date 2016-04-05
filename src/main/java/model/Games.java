@@ -15,12 +15,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ApplicationScoped;
 
 /**
  *
  * @author c0641903
  */
 
+@ManagedBean
+@ApplicationScoped
 public class Games {
     
     // Attributes

@@ -6,11 +6,16 @@
 
 package model;
 
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+
 /**
  *
  * @author c0641903
  */
 
+@ManagedBean
+@SessionScoped
 public class NewPlayer {
     
     // Attributes
