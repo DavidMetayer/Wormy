@@ -17,10 +17,11 @@
         <h:form>
             <h:dataTable value="#{games.games}" var="game">
                 <h:column>
-                    #{game.host}
+                    <h:commandLink action="@@@">
+                        #{game.host}
+                    </h:commandLink>
                 </h:column>
             </h:dataTable>
         </h:form>
     </h:body>
 </html>
-
