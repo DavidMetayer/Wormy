@@ -17,7 +17,7 @@
         <h:form>
             <h:dataTable value="#{games.games}" var="game">
                 <h:column>
-                    <h:commandLink action="#{games.joinGame(game)}">
+                    <h:commandLink action="#{games.joinGame(activePlayer.player, game)}">
                         #{game.host}
                     </h:commandLink>
                 </h:column>
