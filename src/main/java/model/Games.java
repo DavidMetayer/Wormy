@@ -124,5 +124,4 @@ public class Games {
         retrieveGames();
         return "index";
     }
-    
 }
