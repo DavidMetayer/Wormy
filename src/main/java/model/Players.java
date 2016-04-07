@@ -82,24 +82,28 @@ public class Players {
             players = new ArrayList<>();
         }
     }
-    private String registerPlayer(NewPlayer newPlayer) {
-        if (newPlayer.getPassword().equals(newPlayer.getConfirmedPassword())) {
-            try (Connection connection = DatabaseUtils.connect()) {
-                String hashedPassword = DatabaseUtils.hash(newPlayer.getPassword());
-                String sql = "INSERT INTO players VALUES(?, ?, ?, ?, ?)";
-                PreparedStatement statement = connection.prepareStatement(sql);
-                statement.setString(1, newPlayer.getName());
-                statement.setString(2, hashedPassword);
-                statement.setInt(3, 0);
-                statement.setInt(4, 0);
-                statement.setDouble(5, 0);
-                statement.executeUpdate();
-            } catch (SQLException ex) {
-                Logger.getLogger(Players.class.getName()).log(Level.SEVERE, null, ex);
-            }
+    public String startRegister() {
+        return "register";
+    }
+    public String cancelRegister() {
+        return "login";
+    }
+    public String register(String name, String password) {
+        try (Connection connection = DatabaseUtils.connect()) {
+            String hashedPassword = DatabaseUtils.hash(password);
+            String sql = "INSERT INTO players VALUES(?, ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, name);
+            statement.setString(2, hashedPassword);
+            statement.setInt(3, 0);
+            statement.setInt(4, 0);
+            statement.setDouble(5, 0);
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Players.class.getName()).log(Level.SEVERE, null, ex);
         }
         retrievePlayers();
-        return "index";
+        return "login";
     }
     
 }

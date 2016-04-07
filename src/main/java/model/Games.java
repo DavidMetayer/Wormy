@@ -80,11 +80,11 @@ public class Games {
             games = new ArrayList<>();
         }
     }
-    private String createGame(ActivePlayer activePlayer) {
+    private String createGame(Player player) {
         try (Connection connection = DatabaseUtils.connect()) {
             String sql = "INSERT INTO games(host) VALUES(?)";
             PreparedStatement statement = connection.prepareStatement(sql);
-            statement.setString(1, activePlayer.getName());
+            statement.setString(1, player.getName());
             statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(Games.class.getName()).log(Level.SEVERE, null, ex);
@@ -93,14 +93,14 @@ public class Games {
         retrieveGames();
         return "game";
     }
-    public String joinGame(ActivePlayer activePlayer, Game game) {
+    public String joinGame(Player player, Game game) {
         retrieveGames();
         for (Game selectedGame : games) {
             if (game.getHost().equals(selectedGame.getHost())) {
                 try (Connection connection = DatabaseUtils.connect()) {
                     String sql = "UPDATE games SET opponent = ? WHERE host = ?";
                     PreparedStatement statement = connection.prepareStatement(sql);
-                    statement.setString(1, activePlayer.getName());
+                    statement.setString(1, player.getName());
                     statement.setString(2, game.getHost());
                     statement.executeUpdate();
                 } catch (SQLException ex) {
