@@ -23,7 +23,7 @@ import javax.faces.bean.ApplicationScoped;
  * @author c0641903
  */
 
-@ManagedBean(eager=true)
+@ManagedBean
 @ApplicationScoped
 public class Players {
     

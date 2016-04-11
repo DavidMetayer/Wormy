@@ -14,7 +14,7 @@ import javax.faces.bean.SessionScoped;
  * @author c0641903
  */
 
-@ManagedBean(eager=true)
+@ManagedBean
 @SessionScoped
 public class ActivePlayer {
     
