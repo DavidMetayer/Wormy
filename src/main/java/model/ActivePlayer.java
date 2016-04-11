@@ -73,7 +73,7 @@ public class ActivePlayer {
     // Misc. Methods
     public String login() {
         String hashedPassword = DatabaseUtils.hash(password);
-        for (Player selectedPlayer : new Players().getPlayers()) {
+        for (Player selectedPlayer : Players.getInstance().getPlayers()) {
             if (name.equals(selectedPlayer.getName())
                     && hashedPassword.equals(selectedPlayer.getHashedPassword())) {
                 status = true;

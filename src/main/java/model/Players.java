@@ -33,16 +33,16 @@ public class Players {
 
     // Constructors
     public Players() {
-        players = new ArrayList<>();
-        instance = null;
+        retrievePlayers();
+        instance = this;
     }
     public Players(List<Player> players, Players instance) {
         this.players = players;
         this.instance = instance;
     }
     public Players(int a){
-        retrievePlayers();
-        instance = this;
+        players = new ArrayList<>();
+        instance = null;
     }
 
     // Players Getter/Setter
