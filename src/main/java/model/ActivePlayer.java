@@ -83,6 +83,6 @@ public class ActivePlayer {
         }
         player = null;
         status = false;
-        return "index";
+        return "login";
     }
 }
