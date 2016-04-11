@@ -33,7 +33,7 @@ public class Games {
 
     // Constructors
     public Games() {
-        game = new Game("", "", null, null, null, null, null);
+        game = new Game();
         retrieveGames();
     }
     public Games(List<Game> games, Game game) {
