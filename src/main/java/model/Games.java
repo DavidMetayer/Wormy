@@ -84,7 +84,7 @@ public class Games {
             games = new ArrayList<>();
         }
     }
-    private String createGame(Player player) {
+    public String createGame(Player player) {
         try (Connection connection = DatabaseUtils.connect()) {
             String sql = "INSERT INTO games(host) VALUES(?)";
             PreparedStatement statement = connection.prepareStatement(sql);
