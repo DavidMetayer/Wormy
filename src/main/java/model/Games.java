@@ -70,7 +70,7 @@ public class Games {
             while (resultSet.next()) {
                 Game selectedGame = new Game(
                         resultSet.getString("host"),
-                        resultSet.getString("opponent"),
+                        "",
                         null,
                         null,
                         null,
