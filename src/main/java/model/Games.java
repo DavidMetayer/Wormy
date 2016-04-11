@@ -42,7 +42,7 @@ public class Games {
     }
     public Games(int a) {
         games = new ArrayList<>();
-        game = new Game("", "", null, null, null, null, null);
+        game = new Game();
     }
     
     // Games Getter/Setter
