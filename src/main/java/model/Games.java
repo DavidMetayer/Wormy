@@ -78,11 +78,9 @@ public class Games {
                             null,
                             null
                     );
-                    System.out.println("Adding Game: " + resultSet.getString("host"));
                     games.add(selectedGame);
                 }
             }
-            System.out.println("Games Retrieved: " + games.size());
         } catch (SQLException ex) {
             Logger.getLogger(Games.class.getName()).log(Level.SEVERE, null, ex);
             games = new ArrayList<>();
