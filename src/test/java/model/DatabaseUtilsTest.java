@@ -13,6 +13,9 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static model.DatabaseUtils.salt;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -80,7 +83,9 @@ public class DatabaseUtilsTest {
      * Test of connect method, of class DatabaseUtils.
      */
     @Test
-    public void testConnect() throws Exception {
+    public void testConnect() throws SQLException {
+        
+        try {
         String host = System.getenv("OPENSHIFT_MYSQL_DB_HOST");
         String port = System.getenv("OPENSHIFT_MYSQL_DB_PORT");
         String database = "wormyvs";
@@ -90,7 +95,11 @@ public class DatabaseUtilsTest {
         Connection expResult = DriverManager.getConnection(jdbc, username, password);
         Connection result = DatabaseUtils.connect();
         assertEquals(expResult, result);
-        System.out.println("Something went wrong, maybe this ->");
+        } catch (SQLException ex) {
+               Logger.getLogger(DatabaseUtilsTest.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+       
+     
         
         
     }
