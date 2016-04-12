@@ -19,6 +19,8 @@
                 <h:column>
                     <h:commandLink action="#{games.joinGame(activePlayer.player, game)}">#{game.host}</h:commandLink>
                 </h:column>
+                <h:column>#{game.host}</h:column>
+                <h:column>#{game.opponent}</h:column>
             </h:dataTable>
             <h:commandButton value="Create Game" action="#{games.createGame(activePlayer.player)}" />
         </h:form>
