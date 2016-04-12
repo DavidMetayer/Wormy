@@ -66,7 +66,7 @@ public class Games {
         try (Connection connection = DatabaseUtils.connect()) {
             games = new ArrayList<>();
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM games WHERE opponent = NULL");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM games WHERE opponent = 'NULL'");
             while (resultSet.next()) {
                 Game selectedGame = new Game(
                         resultSet.getString("host"),
