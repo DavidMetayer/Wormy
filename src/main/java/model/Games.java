@@ -66,19 +66,21 @@ public class Games {
         try (Connection connection = DatabaseUtils.connect()) {
             games = new ArrayList<>();
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM games WHERE opponent = ''");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM games");
             while (resultSet.next()) {
-                Game selectedGame = new Game(
-                        resultSet.getString("host"),
-                        "",
-                        null,
-                        null,
-                        null,
-                        null,
-                        null
-                );
-                System.out.println("Adding Game: " + resultSet.getString("host"));
-                games.add(selectedGame);
+                if (resultSet.getString("opponent").equals("")) {
+                    Game selectedGame = new Game(
+                            resultSet.getString("host"),
+                            resultSet.getString("opponent"),
+                            null,
+                            null,
+                            null,
+                            null,
+                            null
+                    );
+                    System.out.println("Adding Game: " + resultSet.getString("host"));
+                    games.add(selectedGame);
+                }
             }
             System.out.println("Games Retrieved: " + games.size());
         } catch (SQLException ex) {
@@ -88,7 +90,7 @@ public class Games {
     }
     public String createGame(Player player) {
         try (Connection connection = DatabaseUtils.connect()) {
-            String sql = "INSERT INTO games(host) VALUES(?)";
+            String sql = "INSERT INTO games VALUES(?, '')";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, player.getName());
             statement.executeUpdate();
