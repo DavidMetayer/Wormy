@@ -7,4 +7,17 @@ and open the template in the editor.
     Created on : 24-Feb-2016, 10:26:40 AM
     Author     : c0641903
 */
-
+body {
+    width: 800px;
+}
+#table {
+    width: 500px;
+    height: 450px;
+    float: left;
+    border: 1px solid blue;
+}
+#chat{
+    margin-left: 100px ;
+    border: 2px solid pink;
+    overflow: hidden;
+}
