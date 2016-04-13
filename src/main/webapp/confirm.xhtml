@@ -6,6 +6,9 @@
         <title>Facelet Title</title>
     </h:head>
     <h:body>
+        <h3>
+            You are about to delete your account. Are you sure?
+        </h3>
         <h:form>
             <h:commandButton value="Yes" action="#{activePlayer.delete(activePlayer.player)}" />
             <h:commandButton value="Cancel" action="manage" />
