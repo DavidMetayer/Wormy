@@ -6,7 +6,6 @@
 package model;
 
 import java.io.IOException;
-import java.util.Date;
 // NOTE -- This is the correct ApplicationScoped for integration between WebSockets and JSF
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
@@ -27,7 +26,7 @@ public class Server {
     // LEN : I don't understand how this works.
     // -- This will automatically inject the correct Games object for the scope. You need to pick a scope for this class. It should be @ApplicationScoped. You may need to start using the other @XXXScoped classes (I'm importing the correct one here.)
     @Inject
-    Games games;
+    private Games games;
     
     @OnMessage
     public void receiveMessage(String message, Session session) throws IOException {
@@ -43,48 +42,44 @@ public class Server {
         // -- You don't have to do it from here, exactly. On your Player object, you should have a Session. You can use that Session object to call getBasicRemote() and then sendText() and you can tell the player "Game Over" from anywhere in your code
         // LEN : I may also require a "ready" prompt that will start the Game when both Players are ready. How could I do this?
         // -- Same as above. Make a message (similar to the key presses) that says "I am ready!" and change a flag in the Game object. When the Game object has 2 ready players, it can send messages out to them on their Session objects. This can be done from the Games class or the Game class.
-        Game game = games.findGameBySession(session);
-        Worm currentWorm = game.findWormBySession(session);
+        Game game = games.getGame(session);
+        Worm worm = game.getWorm(session);
+        Worm opponent = null;
+        if (worm.equals(game.getRedWorm())) {
+            opponent = game.getBlueWorm();
+        } else {
+            opponent = game.getRedWorm();
+        }
         // LEN : Doing all the Game's processes here is the correct way to do it, right?
         // This class is mostly for receiving messages from a WebBrowser, a lot of your game logic will still be in the Game class (and the Worm class)
         switch (message) {
             case "L":
-                currentWorm.setDirection(-1);
+                worm.setDirection(-1);
                 break;
             case "U":
-                currentWorm.setDirection(-50);
+                worm.setDirection(-50);
                 break;
             case "R":
-                currentWorm.setDirection(1);
+                worm.setDirection(1);
                 break;
             case "D":
-                currentWorm.setDirection(50);
+                worm.setDirection(50);
                 break;
             default:
                 break;
         }
-        String positionString = Integer.toString(currentWorm.getPosition());
-        if (currentWorm.getPosition() < 50 && currentWorm.getDirection() == -50) {
-            currentWorm.setStatus(false);
-        } else if ((positionString.endsWith("49") || positionString.endsWith("99")) && currentWorm.getDirection() == 1) {
-            currentWorm.setStatus(false);
-        } else if (currentWorm.getPosition() > 2449 && currentWorm.getDirection() == 50) {
-            currentWorm.setStatus(false);
-        } else if (currentWorm.getPosition() % 50 == 0 && currentWorm.getDirection() == -1) {
-            currentWorm.setStatus(false);
-        // LEN : I need to also keep track of the other Worm for this. How?
-        // -- This should probably be done in the Game class. You can run a timed loop that runs every second. See https://docs.oracle.com/javaee/6/tutorial/doc/bnboy.html and look at Automatic Timers. You probably want something like @Schedule(second="*") tagged to a method in your Games class
-        // LEN : Should I be creating all the processing methods for the Game in the Game class and then call them here?
-        // -- Yes. This should just be a thin communication layer to tell Game "Hey this is the latest update I want done"
-        } else if (opponent.getSegments().contains(currentWorm.getPosition() + currentWorm.getDirection())) {
-            currentWorm.setStatus(false);
+        worm.changeStatus(opponent);
+        if (worm.getStatus() == false) {
+            // Still don't understand how this will fit into the Javascript.
+            // -- This sends back the JSON Object from the example (ie- a JSON object that includes at least two arrays that hold the positions of the two worms). You will need to implement the Game.toJSON method that builds this JSON Object. This JSON Object is used in JavaScript to update the whole board (with those three For loops in the proof-of-concept.)
+            Basic basic = session.getBasicRemote();
+            basic.sendText(game.toJson());
         }
-        
-        
         
         // Still don't understand how this will fit into the Javascript.
         // -- This sends back the JSON Object from the example (ie- a JSON object that includes at least two arrays that hold the positions of the two worms). You will need to implement the Game.toJSON method that builds this JSON Object. This JSON Object is used in JavaScript to update the whole board (with those three For loops in the proof-of-concept.)
-        Basic basic = session.getBasicRemote().sendText(g.toJSON());
+        Basic basic = session.getBasicRemote();
+        basic.sendText(game.toJson());
     }
 
 }

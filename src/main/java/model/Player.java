@@ -79,6 +79,14 @@ public class Player {
         this.winLossRatio = winLossRatio;
     }
     
+    // Session Getter/Setter
+    public Session getSession() {
+        return session;
+    }
+    public void setSession(Session session) {
+        this.session = session;
+    }
+    
     // Misc. Methods
     public void changeWins() {
         wins += 1;
@@ -89,15 +97,5 @@ public class Player {
     public void changeWinLossRatio() {
         winLossRatio = wins / losses;
     }
-
-    public Session getSession() {
-        return session;
-    }
-
-    public void setSession(Session session) {
-        this.session = session;
-    }
-    
-    
     
 }

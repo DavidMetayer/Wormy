@@ -6,6 +6,11 @@
 
 package model;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
+import javax.websocket.Session;
+
 /**
  *
  * @author c0641903
@@ -96,6 +101,39 @@ public class Game {
     }
     public void setPellet3(Pellet pellet3) {
         this.pellet3 = pellet3;
+    }
+    
+    public Worm getWorm(Session session) {
+        if (redWorm.getPlayer().getSession().equals(session)) {
+            return redWorm;
+        } else if (blueWorm.getPlayer().getSession().equals(session)) {
+            return blueWorm;
+        } else {
+            return null;
+        }
+    }
+    
+    public String toJson() {
+        JsonArrayBuilder redSegments = Json.createArrayBuilder();
+        JsonArrayBuilder blueSegments = Json.createArrayBuilder();
+        for (Integer selectedSegment : redWorm.getSegments()) {
+            redSegments.add(selectedSegment);
+        }
+        for (Integer selectedSegment : blueWorm.getSegments()) {
+            blueSegments.add(selectedSegment);
+        }
+        JsonObject json = Json.createObjectBuilder()
+                .add("host", host)
+                .add("opponent", opponent)
+                .add("redWorm", redSegments.build())
+                .add("redWormStatus", redWorm.getStatus())
+                .add("blueWorm", blueSegments.build())
+                .add("blueWormStatus", blueWorm.getStatus())
+                .add("pellet1", pellet1.getPosition())
+                .add("pellet2", pellet2.getPosition())
+                .add("pellet3", pellet3.getPosition())
+                .build();
+        return json.toString();
     }
     
 }

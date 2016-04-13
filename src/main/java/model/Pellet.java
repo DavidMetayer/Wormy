@@ -38,7 +38,7 @@ public class Pellet {
     public void changePosition(Worm w1, Worm w2) {
         Random randomPosition = new Random();
         int newPosition;
-        do{
+        do {
             newPosition = randomPosition.nextInt(2500);
         } while (w1.getSegments().contains(newPosition) == false && w2.getSegments().contains(newPosition) == false);
         position = newPosition;

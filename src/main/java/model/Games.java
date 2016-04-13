@@ -111,7 +111,7 @@ public class Games {
     }
     public String endGame(Game game) {
         try (Connection connection = DatabaseUtils.connect()) {
-                String sql = "DELETE FROM GAMES WHERE host = ?";
+                String sql = "DELETE FROM games WHERE host = ?";
                 PreparedStatement statement = connection.prepareStatement(sql);
                 statement.setString(1, game.getHost());
                 statement.executeUpdate();
@@ -128,13 +128,14 @@ public class Games {
         return false;
     }
     // LEN : Absolutely confused here.
-    public Game findGameBySession(Session s) {
+    public Game getGame(Session session) {
         // -- See below. I also implemented getSession on Player
-        for (Game g : games) {
-            if (g.getBlueWorm().getPlayer().getSession().equals(s) || 
-                    g.getRedWorm().getPlayer().getSession().equals(s))
-                return g;
+        for (Game selectedGame : games) {
+            if (selectedGame.getBlueWorm().getPlayer().getSession().equals(session) || 
+                    selectedGame.getRedWorm().getPlayer().getSession().equals(session))
+                return selectedGame;
         }
         return null;
     }
+    
 }
