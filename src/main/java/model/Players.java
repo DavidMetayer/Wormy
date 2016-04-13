@@ -66,7 +66,7 @@ public class Players {
         try (Connection connection = DatabaseUtils.connect()) {
             players = new ArrayList<>();
             Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM players ORDER BY DESC");
+            ResultSet resultSet = statement.executeQuery("SELECT * FROM players");
             while (resultSet.next()) {
                 Player selectedPlayer = new Player(
                         resultSet.getString("name"),
