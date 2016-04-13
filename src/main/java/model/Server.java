@@ -31,7 +31,7 @@ public class Server {
         // LEN : I don't understand this. Do I use session to find the Game, the Worm, or both? Where do I put the sessions?
         // LEN : And how do I use sessions in the classes?
         // LEN : Do the Game classes for each Player need to be exactly the same?
-        // LEN : I need to be able to end the Game when one Worm dies, but how do I do that from here?
+        // LEN : I need to be able to end the Game when one Worm dies, when a Player closes their session, or when they leave the game... but how do I do that from here?
         // LEN : I may also require a "ready" prompt that will start the Game when both Players are ready. How could I do this?
         Game game = games.findGameBySession(session);
         Worm currentWorm = game.findWormBySession(session);
