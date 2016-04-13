@@ -94,4 +94,91 @@ public class GameTest {
         assertEquals(expResult, result);
 
     }
+    
+    @Test
+    public void TestInputHost(){
+        Worm blue = new Worm();
+        Worm red = new Worm();
+        Pellet one = new Pellet(1);
+        Pellet two = new Pellet(2);
+        Pellet three = new Pellet(3);
+        Game game = new Game("Host", "Opponent", red, blue,one,two,three);
+        String expResult = "Host";
+        String result = game.getHost();
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void TestInputOpponent(){
+        Worm blue = new Worm();
+        Worm red = new Worm();
+        Pellet one = new Pellet(1);
+        Pellet two = new Pellet(2);
+        Pellet three = new Pellet(3);
+        Game game = new Game("Host", "Opponent", red, blue,one,two,three);
+        String expResult = "Opponent";
+        String result = game.getOpponent();
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void TestInputRedWorm(){
+        Worm blue = new Worm();
+        Worm red = new Worm();
+        Pellet one = new Pellet(1);
+        Pellet two = new Pellet(2);
+        Pellet three = new Pellet(3);
+        Game game = new Game("Host", "Opponent", red, blue,one,two,three);
+        Worm expResult = red;
+        Worm result = game.getRedWorm();
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void TestInputBlueWorm(){
+        Worm blue = new Worm();
+        Worm red = new Worm();
+        Pellet one = new Pellet(1);
+        Pellet two = new Pellet(2);
+        Pellet three = new Pellet(3);
+        Game game = new Game("Host", "Opponent", red, blue,one,two,three);
+        Worm expResult = blue;
+        Worm result = game.getBlueWorm();
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void TestInputPelletOne(){
+        Worm blue = new Worm();
+        Worm red = new Worm();
+        Pellet one = new Pellet(1);
+        Pellet two = new Pellet(2);
+        Pellet three = new Pellet(3);
+        Game game = new Game("Host", "Opponent", red, blue,one,two,three);
+        Pellet expResult = one;
+        Pellet result = game.getPellet1();
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void TestInputPelletTwo(){
+        Worm blue = new Worm();
+        Worm red = new Worm();
+        Pellet one = new Pellet(1);
+        Pellet two = new Pellet(2);
+        Pellet three = new Pellet(3);
+        Game game = new Game("Host", "Opponent", red, blue,one,two,three);
+        Pellet expResult = two;
+        Pellet result = game.getPellet2();
+        assertEquals(expResult, result);
+    }
+    @Test
+    public void TestInputPelletThree(){
+        Worm blue = new Worm();
+        Worm red = new Worm();
+        Pellet one = new Pellet(1);
+        Pellet two = new Pellet(2);
+        Pellet three = new Pellet(3);
+        Game game = new Game("Host", "Opponent", red, blue,one,two,three);
+        Pellet expResult = three;
+        Pellet result = game.getPellet3();
+        assertEquals(expResult, result);
+    }
+    
+    
 }
