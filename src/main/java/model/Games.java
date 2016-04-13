@@ -113,6 +113,7 @@ public class Games {
                     Logger.getLogger(Games.class.getName()).log(Level.SEVERE, null, ex);
                     return "index";
                 }
+                retrieveGames();
                 return "game";
             }
         }

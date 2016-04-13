@@ -6,6 +6,11 @@
 
 package model;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -86,4 +91,40 @@ public class ActivePlayer {
         status = false;
         return "login";
     }
+    public String update(String name, String password, Player player) {
+        try (Connection connection = DatabaseUtils.connect()) {
+            String hashedPassword = DatabaseUtils.hash(password);
+            String sql = "UPDATE players SET name = ?, hashedPassword = ? WHERE name = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, name);
+            statement.setString(2, hashedPassword);
+            statement.setString(3, player.getName());
+            statement.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Players.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        Players players = new Players();
+        for (Player selectedPlayer : players.getInstance().getPlayers()) {
+            if (name.equals(selectedPlayer.getName())) {
+                this.player = selectedPlayer;
+                return "index";
+            }
+        }
+        return "index";
+    }
+    public String delete(Player player) {
+        try (Connection connection = DatabaseUtils.connect()) {
+            String sql = "DELETE FROM players WHERE name = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, player.getName());
+            statement.executeUpdate();
+            this.player = null;
+            status = false;
+            return "login";
+        } catch (SQLException ex) {
+            Logger.getLogger(Players.class.getName()).log(Level.SEVERE, null, ex);
+            return "manage";
+        }
+    }
+    
 }

@@ -82,12 +82,6 @@ public class Players {
             players = new ArrayList<>();
         }
     }
-    public String startRegister() {
-        return "register";
-    }
-    public String cancelRegister() {
-        return "login";
-    }
     public String register(String name, String password) {
         try (Connection connection = DatabaseUtils.connect()) {
             String hashedPassword = DatabaseUtils.hash(password);

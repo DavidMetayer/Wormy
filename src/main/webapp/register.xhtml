@@ -14,7 +14,7 @@
                 Password: <h:inputSecret value="#{activePlayer.password}" />
             </h3>
             <h:commandButton value="Confirm" action="#{players.register(activePlayer.name, activePlayer.password)}" />
-            <h:commandButton value="Cancel" action="#{players.cancelRegister()}" />
+            <h:commandButton value="Cancel" action="login" />
         </h:form>
     </h:body>
 </html>

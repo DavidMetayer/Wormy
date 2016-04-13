@@ -15,6 +15,20 @@
             Testing
         </h2>
         <h:form>
+            <h:dataTable value="#{players.players}" var="player">
+                <h:column>
+                    #{player.name}
+                </h:column>
+                <h:column>
+                    #{player.wins}
+                </h:column>
+                <h:column>
+                    #{player.losses}
+                </h:column>
+                <h:column>
+                    #{player.winLossRatio}
+                </h:column>
+            </h:dataTable>
             <h:dataTable value="#{games.games}" var="game">
                 <h:column>
                     <h:commandLink action="#{games.joinGame(activePlayer.player, game)}">#{game.host}</h:commandLink>
