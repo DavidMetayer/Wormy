@@ -33,6 +33,9 @@
                     #{player.winLossRatio}
                 </h:column>
             </h:dataTable>
+            <h3>
+                Games
+            </h3>
             <h:dataTable value="#{games.games}" var="game">
                 <h:column>
                     <h:commandLink action="#{games.joinGame(activePlayer.player, game)}">#{game.host}</h:commandLink>
