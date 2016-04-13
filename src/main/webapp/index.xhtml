@@ -37,9 +37,11 @@
                 Games
             </h3>
             <h:dataTable value="#{games.games}" var="game">
-                <h:column>
-                    <h:commandLink action="#{games.joinGame(activePlayer.player, game)}">#{game.host}</h:commandLink>
-                </h:column>
+                <c:if test="#{games.checkGame(game)}">
+                    <h:column>
+                        <h:commandLink action="#{games.joinGame(activePlayer.player, game)}">#{game.host}</h:commandLink>
+                    </h:column>
+                </c:if>
             </h:dataTable>
             <h:commandButton value="Create Game" action="#{games.createGame(activePlayer.player)}" />
         </h:form>

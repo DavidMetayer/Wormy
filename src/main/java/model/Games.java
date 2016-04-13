@@ -17,32 +17,29 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
+import javax.websocket.Session;
 
 /**
  *
  * @author c0641903
  */
-
+// LEN : Session here?
 @ManagedBean
 @ApplicationScoped
 public class Games {
     
     // Attributes
     private List<Game> games;
-    private Game game;
 
     // Constructors
     public Games() {
-        game = new Game();
         retrieveGames();
     }
-    public Games(List<Game> games, Game game) {
+    public Games(List<Game> games) {
         this.games = games;
-        this.game = game;
     }
     public Games(int a) {
         games = new ArrayList<>();
-        game = new Game();
     }
     
     // Games Getter/Setter
@@ -52,14 +49,6 @@ public class Games {
     public void setGames(List<Game> games) {
         this.games = games;
     }
-
-    // Game Getter/Setter
-    public Game getGame() {
-        return game;
-    }
-    public void setGame(Game game) {
-        this.game = game;
-    }
     
     // Misc. Methods
     private void retrieveGames() {
@@ -68,24 +57,23 @@ public class Games {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM games");
             while (resultSet.next()) {
-                if (resultSet.getString("opponent").equals("")) {
-                    Game selectedGame = new Game(
-                            resultSet.getString("host"),
-                            resultSet.getString("opponent"),
-                            null,
-                            null,
-                            null,
-                            null,
-                            null
-                    );
-                    games.add(selectedGame);
-                }
+                Game selectedGame = new Game(
+                        resultSet.getString("host"),
+                        resultSet.getString("opponent"),
+                        null,
+                        null,
+                        null,
+                        null,
+                        null
+                );
+                games.add(selectedGame);
             }
         } catch (SQLException ex) {
             Logger.getLogger(Games.class.getName()).log(Level.SEVERE, null, ex);
             games = new ArrayList<>();
         }
     }
+    // LEN : Should I be declaring the game data (i.e. Worms, Pellets, etc.) here and on joinGame? Can't store that information in the database.
     public String createGame(Player player) {
         try (Connection connection = DatabaseUtils.connect()) {
             String sql = "INSERT INTO games VALUES(?, '')";
@@ -97,24 +85,25 @@ public class Games {
             return "index";
         }
         retrieveGames();
+        
         return "game";
     }
     public String joinGame(Player player, Game game) {
         retrieveGames();
         for (Game selectedGame : games) {
-            if (game.getHost().equals(selectedGame.getHost())) {
+            if (game.getHost().equals(selectedGame.getHost()) && selectedGame.getOpponent().equals("")) {
                 try (Connection connection = DatabaseUtils.connect()) {
                     String sql = "UPDATE games SET opponent = ? WHERE host = ?";
                     PreparedStatement statement = connection.prepareStatement(sql);
                     statement.setString(1, player.getName());
                     statement.setString(2, game.getHost());
                     statement.executeUpdate();
+                    retrieveGames();
+                    return "game";
                 } catch (SQLException ex) {
                     Logger.getLogger(Games.class.getName()).log(Level.SEVERE, null, ex);
                     return "index";
                 }
-                retrieveGames();
-                return "game";
             }
         }
         return "index";
@@ -130,5 +119,15 @@ public class Games {
         }
         retrieveGames();
         return "index";
+    }
+    public boolean checkGame(Game game) {
+        if (game.getOpponent().equals("")) {
+            return true;
+        }
+        return false;
+    }
+    public Game findGameBySession(Session s) {
+        // LEN : Absolutely confused here.
+        return null;
     }
 }
