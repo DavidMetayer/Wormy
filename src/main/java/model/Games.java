@@ -74,6 +74,7 @@ public class Games {
         }
     }
     // LEN : Where should I instantiate the Game data (i.e. Worms, Pellets, etc.)?
+    // It can be done here, when you add to the DB, you also do a new Game(name, ..., ...)
     public String createGame(Player player) {
         try (Connection connection = DatabaseUtils.connect()) {
             String sql = "INSERT INTO games VALUES(?, '')";
@@ -128,6 +129,12 @@ public class Games {
     }
     // LEN : Absolutely confused here.
     public Game findGameBySession(Session s) {
+        // -- See below. I also implemented getSession on Player
+        for (Game g : games) {
+            if (g.getBlueWorm().getPlayer().getSession().equals(s) || 
+                    g.getRedWorm().getPlayer().getSession().equals(s))
+                return g;
+        }
         return null;
     }
 }

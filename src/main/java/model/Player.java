@@ -6,6 +6,8 @@
 
 package model;
 
+import javax.websocket.Session;
+
 /**
  *
  * @author c0641903
@@ -19,6 +21,7 @@ public class Player {
     private int wins;
     private int losses;
     private double winLossRatio;
+    private Session session;
     
     // Constructors
     public Player() {
@@ -86,5 +89,15 @@ public class Player {
     public void changeWinLossRatio() {
         winLossRatio = wins / losses;
     }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+    
+    
     
 }
