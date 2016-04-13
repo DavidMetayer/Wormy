@@ -102,38 +102,6 @@ public class Worm {
     }
     
     // Misc. Methods
-    public void changeDirection(int direction) {
-        switch (direction) {
-            case 37:
-                this.direction = -1;
-                break;
-            case 38:
-                this.direction = -50;
-                break;
-            case 39:
-                this.direction = 1;
-                break;
-            case 40:
-                this.direction = 50;
-                break;
-            default:
-                break;
-        }
-    }
-    public void changeStatus(Worm opponent) {
-        String positionString = Integer.toString(position);
-        if (position < 50 && direction == -50) {
-            status = false;
-        } else if ((positionString.endsWith("49") || positionString.endsWith("99")) && direction == 1) {
-            status = false;
-        } else if (position > 2449 && direction == 50) {
-            status = false;
-        } else if (position % 50 == 0 && direction == -1) {
-            status = false;
-        } else if (opponent.getSegments().contains(position + direction)) {
-            status = false;
-        }
-    }
     public void changePosition() {
         position += direction;
     }

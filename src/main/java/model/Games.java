@@ -23,7 +23,7 @@ import javax.websocket.Session;
  *
  * @author c0641903
  */
-// LEN : Session here?
+
 @ManagedBean
 @ApplicationScoped
 public class Games {
@@ -73,7 +73,7 @@ public class Games {
             games = new ArrayList<>();
         }
     }
-    // LEN : Should I be declaring the game data (i.e. Worms, Pellets, etc.) here and on joinGame? Can't store that information in the database.
+    // LEN : Where should I instantiate the Game data (i.e. Worms, Pellets, etc.)?
     public String createGame(Player player) {
         try (Connection connection = DatabaseUtils.connect()) {
             String sql = "INSERT INTO games VALUES(?, '')";
@@ -126,8 +126,8 @@ public class Games {
         }
         return false;
     }
+    // LEN : Absolutely confused here.
     public Game findGameBySession(Session s) {
-        // LEN : Absolutely confused here.
         return null;
     }
 }
