@@ -6,7 +6,6 @@
 package model;
 
 import java.io.IOException;
-import java.util.Date;
 import javax.inject.Inject;
 import javax.websocket.OnMessage;
 import javax.websocket.RemoteEndpoint.Basic;
