@@ -18,9 +18,9 @@ public class Worm {
     
     // Attributes
     private Player player;
+    private boolean status;
     private String colour;
     private int direction;
-    private boolean status;
     private int position;
     private int lastTailPosition;
     private List<Integer> segments;

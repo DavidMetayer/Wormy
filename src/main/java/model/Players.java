@@ -99,5 +99,13 @@ public class Players {
         retrievePlayers();
         return "login";
     }
+    public Player getPlayer(String name) {
+        for (Player selectedPlayer : players) {
+            if (selectedPlayer.getName().equals(name)) {
+                return selectedPlayer; 
+            }
+        }
+        return null;
+    }
 
 }

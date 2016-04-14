@@ -18,7 +18,6 @@ import javax.websocket.server.ServerEndpoint;
  *
  * @author c0641903
  */
-
 @ServerEndpoint("/play")
 @ApplicationScoped
 public class Server {
@@ -27,7 +26,7 @@ public class Server {
     // -- This will automatically inject the correct Games object for the scope. You need to pick a scope for this class. It should be @ApplicationScoped. You may need to start using the other @XXXScoped classes (I'm importing the correct one here.)
     @Inject
     private Games games;
-    
+
     @OnMessage
     public void receiveMessage(String message, Session session) throws IOException {
 
@@ -66,15 +65,16 @@ public class Server {
         if (game.getWormStatus(worm) == false) {
             // Still don't understand how this will fit into the Javascript.
             // -- This sends back the JSON Object from the example (ie- a JSON object that includes at least two arrays that hold the positions of the two worms). You will need to implement the Game.toJSON method that builds this JSON Object. This JSON Object is used in JavaScript to update the whole board (with those three For loops in the proof-of-concept.)
-            Basic basic = session.getBasicRemote();
-            basic.sendText(game.toJson());
+
+            game.getBlueWorm().getPlayer().getSession().getBasicRemote().sendText(game.toJson());
+            game.getRedWorm().getPlayer().getSession().getBasicRemote().sendText(game.toJson());
         }
         game.updateWormPosition(worm);
         game.updateWormSize(worm);
         game.updateWormLTP(worm);
         game.updateWormSegments(worm);
-        Basic basic = session.getBasicRemote();
-        basic.sendText(game.toJson());
+        game.getBlueWorm().getPlayer().getSession().getBasicRemote().sendText(game.toJson());
+        game.getRedWorm().getPlayer().getSession().getBasicRemote().sendText(game.toJson());
     }
 
 }

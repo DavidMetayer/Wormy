@@ -6,6 +6,7 @@
 
 package model;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -81,15 +82,37 @@ public class Games {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, player.getName());
             statement.executeUpdate();
+            
+            for (Game selectedGame : games) {
+                if (selectedGame.getHost().equals(player.getName())) {
+                    List<Integer> redSegments = new ArrayList<>();
+                    redSegments.add(2);
+                    redSegments.add(1);
+                    redSegments.add(0);
+                    List<Integer> blueSegments = new ArrayList<>();
+                    blueSegments.add(2497);
+                    blueSegments.add(2498);
+                    blueSegments.add(2499);
+                    Worm rw = new Worm(player, true, "red", 1, 2, 0, redSegments);
+                    Worm bw = new Worm(null, true, "cyan", -1, 2497, 2499, blueSegments);
+                    selectedGame.setRedWorm(rw);
+                    selectedGame.setBlueWorm(bw);
+                    Pellet p1 = new Pellet(824);
+                    Pellet p2 = new Pellet(1224);
+                    Pellet p3 = new Pellet(1624);
+                    selectedGame.setPellet1(p1);
+                    selectedGame.setPellet2(p2);
+                    selectedGame.setPellet3(p3);
+                }
+            }
         } catch (SQLException ex) {
             Logger.getLogger(Games.class.getName()).log(Level.SEVERE, null, ex);
             return "index";
         }
         retrieveGames();
-        
         return "game";
     }
-    public String joinGame(Player player, Game game) {
+    public String joinGame(Player player, Game game) throws IOException {
         retrieveGames();
         for (Game selectedGame : games) {
             if (game.getHost().equals(selectedGame.getHost()) && selectedGame.getOpponent().equals("")) {
@@ -99,7 +122,29 @@ public class Games {
                     statement.setString(1, player.getName());
                     statement.setString(2, game.getHost());
                     statement.executeUpdate();
-                    retrieveGames();
+                    
+                    selectedGame.setOpponent(player.getName());
+                    List<Integer> redSegments = new ArrayList<>();
+                    redSegments.add(2);
+                    redSegments.add(1);
+                    redSegments.add(0);
+                    List<Integer> blueSegments = new ArrayList<>();
+                    blueSegments.add(2497);
+                    blueSegments.add(2498);
+                    blueSegments.add(2499);
+                    Players players = new Players();
+                    Worm rw = new Worm(players.getPlayer(selectedGame.getHost()), true, "red", 1, 2, 0, redSegments);
+                    Worm bw = new Worm(player, true, "cyan", -1, 2497, 2499, blueSegments);
+                    selectedGame.setRedWorm(rw);
+                    selectedGame.setBlueWorm(bw);
+                    Pellet p1 = new Pellet(824);
+                    Pellet p2 = new Pellet(1224);
+                    Pellet p3 = new Pellet(1624);
+                    selectedGame.setPellet1(p1);
+                    selectedGame.setPellet2(p2);
+                    selectedGame.setPellet3(p3);
+                    selectedGame.getRedWorm().getPlayer().getSession().getBasicRemote().sendText(selectedGame.toJson());
+                    
                     return "game";
                 } catch (SQLException ex) {
                     Logger.getLogger(Games.class.getName()).log(Level.SEVERE, null, ex);
