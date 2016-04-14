@@ -87,7 +87,7 @@ public class Games {
                         null,
                         null
                 );
-                if (selectedGame.getOpponent().equals("") == false) {
+                if (selectedGame.getOpponent().equals("")) {
                     games.add(selectedGame);
                 }
             }
