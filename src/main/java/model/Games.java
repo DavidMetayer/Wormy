@@ -168,7 +168,7 @@ public class Games {
                     selectedGame.setPellet1(p1);
                     selectedGame.setPellet2(p2);
                     selectedGame.setPellet3(p3);
-                    selectedGame.getRedWorm().getPlayer().getSession().getBasicRemote().sendText(selectedGame.toJson());
+                    // selectedGame.getRedWorm().getPlayer().getSession().getBasicRemote().sendText(selectedGame.toJson());
 
                     return "game";
                 } catch (SQLException ex) {
