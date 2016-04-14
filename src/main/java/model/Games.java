@@ -87,7 +87,9 @@ public class Games {
                         null,
                         null
                 );
-                games.add(selectedGame);
+                if (selectedGame.getOpponent().equals("") == false) {
+                    games.add(selectedGame);
+                }
             }
         } catch (SQLException ex) {
             Logger.getLogger(Games.class.getName()).log(Level.SEVERE, null, ex);
