@@ -44,40 +44,35 @@ public class Server {
         // -- Same as above. Make a message (similar to the key presses) that says "I am ready!" and change a flag in the Game object. When the Game object has 2 ready players, it can send messages out to them on their Session objects. This can be done from the Games class or the Game class.
         Game game = games.getGame(session);
         Worm worm = game.getWorm(session);
-        Worm opponent = null;
-        if (worm.equals(game.getRedWorm())) {
-            opponent = game.getBlueWorm();
-        } else {
-            opponent = game.getRedWorm();
-        }
         // LEN : Doing all the Game's processes here is the correct way to do it, right?
         // This class is mostly for receiving messages from a WebBrowser, a lot of your game logic will still be in the Game class (and the Worm class)
         switch (message) {
             case "L":
-                worm.setDirection(-1);
+                game.updateWormDirection(worm, -1);
                 break;
             case "U":
-                worm.setDirection(-50);
+                game.updateWormDirection(worm, -50);
                 break;
             case "R":
-                worm.setDirection(1);
+                game.updateWormDirection(worm, 1);
                 break;
             case "D":
-                worm.setDirection(50);
+                game.updateWormDirection(worm, 50);
                 break;
             default:
                 break;
         }
-        worm.changeStatus(opponent);
-        if (worm.getStatus() == false) {
+        game.updateWormStatus(worm);
+        if (game.getWormStatus(worm) == false) {
             // Still don't understand how this will fit into the Javascript.
             // -- This sends back the JSON Object from the example (ie- a JSON object that includes at least two arrays that hold the positions of the two worms). You will need to implement the Game.toJSON method that builds this JSON Object. This JSON Object is used in JavaScript to update the whole board (with those three For loops in the proof-of-concept.)
             Basic basic = session.getBasicRemote();
             basic.sendText(game.toJson());
         }
-        
-        // Still don't understand how this will fit into the Javascript.
-        // -- This sends back the JSON Object from the example (ie- a JSON object that includes at least two arrays that hold the positions of the two worms). You will need to implement the Game.toJSON method that builds this JSON Object. This JSON Object is used in JavaScript to update the whole board (with those three For loops in the proof-of-concept.)
+        game.updateWormPosition(worm);
+        game.updateWormSize(worm);
+        game.updateWormLTP(worm);
+        game.updateWormSegments(worm);
         Basic basic = session.getBasicRemote();
         basic.sendText(game.toJson());
     }

@@ -123,13 +123,18 @@ public class Worm {
     public void changePosition() {
         position += direction;
     }
-    // Move to game.
-    public boolean changeSize(Pellet p1, Pellet p2, Pellet p3) {
-        if (position == p1.getPosition() || position == p2.getPosition() || position == p3.getPosition()) {
+    public Pellet changeSize(Pellet p1, Pellet p2, Pellet p3) {
+        if (position == p1.getPosition()) {
             segments.add(lastTailPosition);
-            return true;
+            return p1;
+        } else if (position == p2.getPosition()) {
+            segments.add(lastTailPosition);
+            return p2;
+        } else if (position == p3.getPosition()) {
+            segments.add(lastTailPosition);
+            return p3;
         } else {
-            return false;
+            return null;
         }
     }
     public void changeLastTailPosition() {

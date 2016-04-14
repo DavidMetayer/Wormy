@@ -102,7 +102,87 @@ public class Game {
     public void setPellet3(Pellet pellet3) {
         this.pellet3 = pellet3;
     }
-    
+    public void updateWormDirection(Worm worm, int direction) {
+        switch (worm.getColour()) {
+            case "red":
+                redWorm.setDirection(direction);
+                break;
+            case "cyan":
+                blueWorm.setDirection(direction);
+                break;
+        }
+    }
+    public void updateWormStatus(Worm worm) {
+        switch (worm.getColour()) {
+            case "red":
+                redWorm.changeStatus(blueWorm);
+                break;
+            case "cyan":
+                blueWorm.changeStatus(redWorm);
+                break;
+        }
+    }
+    public boolean getWormStatus(Worm worm) {
+        switch (worm.getColour()) {
+            case "red":
+                return redWorm.getStatus();
+            case "cyan":
+                return blueWorm.getStatus();
+        }
+        return false;
+    }
+    public void updateWormPosition(Worm worm) {
+        switch (worm.getColour()) {
+            case "red":
+                redWorm.changePosition();
+                break;
+            case "cyan":
+                blueWorm.changePosition();
+                break;
+        }
+    }
+    public void updateWormSize(Worm worm) {
+        switch (worm.getColour()) {
+            case "red":
+                if (redWorm.changeSize(pellet1, pellet2, pellet3).equals(pellet1)) {
+                    pellet1.changePosition(redWorm, blueWorm);
+                } else if (redWorm.changeSize(pellet1, pellet2, pellet3).equals(pellet2)) {
+                    pellet2.changePosition(redWorm, blueWorm);
+                } else if (redWorm.changeSize(pellet1, pellet2, pellet3).equals(pellet3)) {
+                    pellet3.changePosition(redWorm, blueWorm);
+                }
+                break;
+            case "cyan":
+                if (blueWorm.changeSize(pellet1, pellet2, pellet3).equals(pellet1)) {
+                    pellet1.changePosition(redWorm, blueWorm);
+                } else if (blueWorm.changeSize(pellet1, pellet2, pellet3).equals(pellet2)) {
+                    pellet2.changePosition(redWorm, blueWorm);
+                } else if (blueWorm.changeSize(pellet1, pellet2, pellet3).equals(pellet3)) {
+                    pellet3.changePosition(redWorm, blueWorm);
+                }
+                break;
+        }
+    }
+    public void updateWormLTP(Worm worm) {
+        switch (worm.getColour()) {
+            case "red":
+                redWorm.changeLastTailPosition();
+                break;
+            case "cyan":
+                blueWorm.changeLastTailPosition();
+                break;
+        }
+    }
+    public void updateWormSegments(Worm worm) {
+        switch (worm.getColour()) {
+            case "red":
+                redWorm.changeSegments();
+                break;
+            case "cyan":
+                blueWorm.changeSegments();
+                break;
+        }
+    }
     public Worm getWorm(Session session) {
         if (redWorm.getPlayer().getSession().equals(session)) {
             return redWorm;
