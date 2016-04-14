@@ -92,6 +92,9 @@ public class ActivePlayer {
         return "login";
     }
     public String update(String name, String password, Player player) {
+        if (password.equals("")) {
+            password = player.getHashedPassword();
+        }
         try (Connection connection = DatabaseUtils.connect()) {
             String hashedPassword = DatabaseUtils.hash(password);
             String sql = "UPDATE players SET name = ?, hashedPassword = ? WHERE name = ?";
