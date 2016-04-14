@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package model;
 
 import java.io.IOException;
@@ -16,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.ejb.Schedule;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ApplicationScoped;
 import javax.websocket.Session;
@@ -24,11 +24,10 @@ import javax.websocket.Session;
  *
  * @author c0641903
  */
-
 @ManagedBean
 @ApplicationScoped
 public class Games {
-    
+
     // Attributes
     private List<Game> games;
 
@@ -36,21 +35,42 @@ public class Games {
     public Games() {
         retrieveGames();
     }
+
     public Games(List<Game> games) {
         this.games = games;
     }
+
     public Games(int a) {
         games = new ArrayList<>();
     }
-    
+
     // Games Getter/Setter
     public List<Game> getGames() {
         return games;
     }
+
     public void setGames(List<Game> games) {
         this.games = games;
     }
-    
+
+    @Schedule(second = "*/5")
+    public void updateAllGames() throws IOException {
+        for (Game game : games) {
+            Worm worm = game.getBlueWorm();
+            game.updateWormPosition(worm);
+            game.updateWormSize(worm);
+            game.updateWormLTP(worm);
+            game.updateWormSegments(worm);
+            worm = game.getRedWorm();
+            game.updateWormPosition(worm);
+            game.updateWormSize(worm);
+            game.updateWormLTP(worm);
+            game.updateWormSegments(worm);
+            game.getBlueWorm().getPlayer().getSession().getBasicRemote().sendText(game.toJson());
+            game.getRedWorm().getPlayer().getSession().getBasicRemote().sendText(game.toJson());
+        }
+    }
+
     // Misc. Methods
     private void retrieveGames() {
         try (Connection connection = DatabaseUtils.connect()) {
@@ -74,15 +94,17 @@ public class Games {
             games = new ArrayList<>();
         }
     }
+
     // LEN : Where should I instantiate the Game data (i.e. Worms, Pellets, etc.)?
     // It can be done here, when you add to the DB, you also do a new Game(name, ..., ...)
+
     public String createGame(Player player) {
         try (Connection connection = DatabaseUtils.connect()) {
             String sql = "INSERT INTO games VALUES(?, '')";
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, player.getName());
             statement.executeUpdate();
-            
+
             for (Game selectedGame : games) {
                 if (selectedGame.getHost().equals(player.getName())) {
                     List<Integer> redSegments = new ArrayList<>();
@@ -112,6 +134,7 @@ public class Games {
         retrieveGames();
         return "game";
     }
+
     public String joinGame(Player player, Game game) throws IOException {
         retrieveGames();
         for (Game selectedGame : games) {
@@ -122,7 +145,7 @@ public class Games {
                     statement.setString(1, player.getName());
                     statement.setString(2, game.getHost());
                     statement.executeUpdate();
-                    
+
                     selectedGame.setOpponent(player.getName());
                     List<Integer> redSegments = new ArrayList<>();
                     redSegments.add(2);
@@ -144,7 +167,7 @@ public class Games {
                     selectedGame.setPellet2(p2);
                     selectedGame.setPellet3(p3);
                     selectedGame.getRedWorm().getPlayer().getSession().getBasicRemote().sendText(selectedGame.toJson());
-                    
+
                     return "game";
                 } catch (SQLException ex) {
                     Logger.getLogger(Games.class.getName()).log(Level.SEVERE, null, ex);
@@ -154,33 +177,38 @@ public class Games {
         }
         return "index";
     }
+
     public String endGame(Game game) {
         try (Connection connection = DatabaseUtils.connect()) {
-                String sql = "DELETE FROM games WHERE host = ?";
-                PreparedStatement statement = connection.prepareStatement(sql);
-                statement.setString(1, game.getHost());
-                statement.executeUpdate();
+            String sql = "DELETE FROM games WHERE host = ?";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, game.getHost());
+            statement.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(Games.class.getName()).log(Level.SEVERE, null, ex);
         }
         retrieveGames();
         return "index";
     }
+
     public boolean checkGame(Game game) {
         if (game.getOpponent().equals("")) {
             return true;
         }
         return false;
     }
+
     // LEN : Absolutely confused here.
+
     public Game getGame(Session session) {
         // -- See below. I also implemented getSession on Player
         for (Game selectedGame : games) {
-            if (selectedGame.getBlueWorm().getPlayer().getSession().equals(session) || 
-                    selectedGame.getRedWorm().getPlayer().getSession().equals(session))
+            if (selectedGame.getBlueWorm().getPlayer().getSession().equals(session)
+                    || selectedGame.getRedWorm().getPlayer().getSession().equals(session)) {
                 return selectedGame;
+            }
         }
         return null;
     }
-    
+
 }
