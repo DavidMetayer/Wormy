@@ -140,7 +140,7 @@ public class Games {
     public String joinGame(Player player, Game game) throws IOException {
         retrieveGames();
         for (Game selectedGame : games) {
-            if (game.getHost().equals(selectedGame.getHost()) && selectedGame.getOpponent().equals("")) {
+            if (game.getHost().equals(selectedGame.getHost())) {
                 try (Connection connection = DatabaseUtils.connect()) {
                     String sql = "UPDATE games SET opponent = ? WHERE host = ?";
                     PreparedStatement statement = connection.prepareStatement(sql);
