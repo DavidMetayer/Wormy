@@ -184,17 +184,13 @@ public class Game {
         }
     }
     public Worm getWorm(Session session) {
-        if (redWorm.getPlayer() != null && 
-                redWorm.getPlayer().getSession() != null &&
-                redWorm.getPlayer().getSession().equals(session)) {
-                return redWorm;
+        if (redWorm.getPlayer().getSession().equals(session)) {
+            return redWorm;
+        } else if (blueWorm.getPlayer().getSession().equals(session)) {
+            return blueWorm;
+        } else {
+            return null;
         }
-        if (blueWorm.getPlayer() != null && 
-                blueWorm.getPlayer().getSession() != null &&
-                blueWorm.getPlayer().getSession().equals(session)) {
-                return blueWorm;
-        }
-        return null;
     }
     
     public String toJson() {
