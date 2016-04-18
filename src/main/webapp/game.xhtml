@@ -100,7 +100,7 @@
             //]]>
         </script>
         <h:form>
-            <h:commandButton value="Leave Game" action="#{games.endGame(game)}" />
+            <h:commandButton value="Leave Game" action="#{games.endGame(games.getGame(activePlayer.player.session))}" />
         </h:form>
     </h:body>
 </html>
