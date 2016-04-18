@@ -11,37 +11,39 @@
         <link rel="icon" type ="image/ico" href ="images/cerberus.ico" />
     </h:head>
     <h:body>
-        <h2>
-            Home
-        </h2>
-        <h:form>
-            <h:commandButton value="Manage Account" action="manage" />
-            <h3>
-                Players
-            </h3>
-            <h:dataTable value="#{players.players}" var="player">
-                <h:column>
-                    #{player.name}
-                </h:column>
-                <h:column>
-                    #{player.wins}
-                </h:column>
-                <h:column>
-                    #{player.losses}
-                </h:column>
-                <h:column>
-                    #{player.winLossRatio}
-                </h:column>
-            </h:dataTable>
-            <h3>
-                Games
-            </h3>
-            <h:dataTable value="#{games.games}" var="game">
-                <h:column>
-                    <h:commandLink action="#{games.joinGame(activePlayer.player, game)}">#{game.host}</h:commandLink>
-                </h:column>
-            </h:dataTable>
-            <h:commandButton value="Create Game" action="#{games.createGame(activePlayer.player)}" />
-        </h:form>
+        <c:if test="#{activePlayer.status}">
+            <h2>
+                Home
+            </h2>
+            <h:form>
+                <h:commandButton value="Manage Account" action="manage" />
+                <h3>
+                    Players
+                </h3>
+                <h:dataTable value="#{players.players}" var="player">
+                    <h:column>
+                        #{player.name}
+                    </h:column>
+                    <h:column>
+                        #{player.wins}
+                    </h:column>
+                    <h:column>
+                        #{player.losses}
+                    </h:column>
+                    <h:column>
+                        #{player.winLossRatio}
+                    </h:column>
+                </h:dataTable>
+                <h3>
+                    Games
+                </h3>
+                <h:dataTable value="#{games.games}" var="game">
+                    <h:column>
+                        <h:commandLink action="#{games.joinGame(activePlayer.player, game)}">#{game.host}</h:commandLink>
+                    </h:column>
+                </h:dataTable>
+                <h:commandButton value="Create Game" action="#{games.createGame(activePlayer.player)}" />
+            </h:form>
+        </c:if>
     </h:body>
 </html>

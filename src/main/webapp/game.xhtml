@@ -10,97 +10,99 @@
         <script src="http://code.jquery.com/jquery.min.js"></script>
     </h:head>
     <h:body>
-        <table id="board">
-        </table>
-        <script>
-            //<![CDATA[
-            $(document).ready(function () {
-                var wsUri = "ws://" + window.location.host + ":8000/play";
-                var websocket = new WebSocket(wsUri);
-                var row = "";
-                var coord = 0;
-                for (var a = 0; a < 50; a++) {
-                    row += "<tr>";
-                    for (var b = 0; b < 50; b++) {
-                        row += "<td id=\"g" + coord + "\"></td>";
-                        coord += 1;
+        <c:if test="#{activePlayer.status}">
+            <table id="board">
+            </table>
+            <script>
+                //<![CDATA[
+                $(document).ready(function () {
+                    var wsUri = "ws://" + window.location.host + ":8000/play";
+                    var websocket = new WebSocket(wsUri);
+                    var row = "";
+                    var coord = 0;
+                    for (var a = 0; a < 50; a++) {
+                        row += "<tr>";
+                        for (var b = 0; b < 50; b++) {
+                            row += "<td id=\"g" + coord + "\"></td>";
+                            coord += 1;
+                        }
+                        row += "</tr>";
                     }
-                    row += "</tr>";
-                }
-                $('#board').html(row);
+                    $('#board').html(row);
 
-                // Key Events
-                // Have to send key data to Java code to determine what action to take.
-                //TODO: Worm redWorm = new Worm();
-                //TODO: Worm cyanWorm = new Worm();
-                //TODO: Pellet eat = new Pellet();
-                //TODO: start GameLoop; -- Always check for endGame();
-                //TODO: Spawn Pellet
-                //TODO: Start moving worms
+                    // Key Events
+                    // Have to send key data to Java code to determine what action to take.
+                    //TODO: Worm redWorm = new Worm();
+                    //TODO: Worm cyanWorm = new Worm();
+                    //TODO: Pellet eat = new Pellet();
+                    //TODO: start GameLoop; -- Always check for endGame();
+                    //TODO: Spawn Pellet
+                    //TODO: Start moving worms
 
-                document.onkeydown = function (e) {
-                    e = e || window.event;
-                    switch (e.which || e.keyCode) {
-                        case 37: // Left
-                            //TODO: call moveLeft();
-                            //TODO: getCoordinate()-1;
-                            websocket.send('L');
-                            break;
+                    document.onkeydown = function (e) {
+                        e = e || window.event;
+                        switch (e.which || e.keyCode) {
+                            case 37: // Left
+                                //TODO: call moveLeft();
+                                //TODO: getCoordinate()-1;
+                                websocket.send('L');
+                                break;
 
-                        case 38: // Up
-                            //TODO: call moveUp();
-                            websocket.send('U');
-                            var head = this.getElementById((this.getCoordinate() - 50));
-                            document.getElementById(head).style.background - color(this.getColor());
-                            break;
+                            case 38: // Up
+                                //TODO: call moveUp();
+                                websocket.send('U');
+                                var head = this.getElementById((this.getCoordinate() - 50));
+                                document.getElementById(head).style.background - color(this.getColor());
+                                break;
 
-                        case 39: // Right
-                            //TODO: call moveRight();
-                            websocket.send('R');
-                            var head = this.getElementById((this.getCoordinate() + 1));
-                            document.getElementById(head).style.background - color(this.getColor());
-                            break;
+                            case 39: // Right
+                                //TODO: call moveRight();
+                                websocket.send('R');
+                                var head = this.getElementById((this.getCoordinate() + 1));
+                                document.getElementById(head).style.background - color(this.getColor());
+                                break;
 
-                        case 40: // Down
-                            //TODO: call moveDown();
-                            websocket.send('D');
-                            var head = this.getElementById((this.getCoordinate() - 50));
-                            document.getElementById(head).style.background - color(this.getColor());
-                            break;
+                            case 40: // Down
+                                //TODO: call moveDown();
+                                websocket.send('D');
+                                var head = this.getElementById((this.getCoordinate() - 50));
+                                document.getElementById(head).style.background - color(this.getColor());
+                                break;
 
-                        default:
-                            return; // Exit this handler for other keys
-                    }
-                    e.preventDefault(); // Prevent the default action (scroll / move caret)
+                            default:
+                                return; // Exit this handler for other keys
+                        }
+                        e.preventDefault(); // Prevent the default action (scroll / move caret)
 
 
-                    //TODO end GameLoop;
-                };
-                websocket.onmessage = function (evt) {
-                    // evt.data is the JSON object that you get from the server when an update happens
-                    // Resets the Board to All Black
-                    for (var i = 0; i < 2500; i++)
-                        $('#g' + i).css('background-color', 'black');
+                        //TODO end GameLoop;
+                    };
+                    websocket.onmessage = function (evt) {
+                        // evt.data is the JSON object that you get from the server when an update happens
+                        // Resets the Board to All Black
+                        for (var i = 0; i < 2500; i++)
+                            $('#g' + i).css('background-color', 'black');
 
-                    // Displays the Red Worm as Red
-                    var redcoords = evt.data.redWorm;
+                        // Displays the Red Worm as Red
+                        var redcoords = evt.data.redWorm;
 
-                    for (var i = 0; i < redcoords.length; i++) {
-                        $('#g' + redcoords[i]).css('background-color', 'red');
-                    }
-                    
-                    // Displays the Blue Worm as Blue
-                    var bluecoords = evt.data.blueWorm;
+                        for (var i = 0; i < redcoords.length; i++) {
+                            $('#g' + redcoords[i]).css('background-color', 'red');
+                        }
 
-                    for (var i = 0; i < redcoords.length; i++) {
-                        $('#g' + bluecoords[i]).css('background-color', 'cyan');
-                    }
-                };
-            });
-            //]]>
-        </script>
-        <h:form>
-            <h:commandButton value="Leave Game" action="#{games.endGame(games.getGame(activePlayer.player.session))}" />
-        </h:form>
+                        // Displays the Blue Worm as Blue
+                        var bluecoords = evt.data.blueWorm;
+
+                        for (var i = 0; i < redcoords.length; i++) {
+                            $('#g' + bluecoords[i]).css('background-color', 'cyan');
+                        }
+                    };
+                });
+                //]]>
+            </script>
+            <h:form>
+                <h:commandButton value="Leave Game" action="#{games.endGame(games.getGame(activePlayer.player.session))}" />
+            </h:form>
+        </c:if>
     </h:body>
 </html>
