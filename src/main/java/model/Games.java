@@ -205,9 +205,17 @@ public class Games {
     public Game getGame(Session session) {
         // -- See below. I also implemented getSession on Player
         for (Game selectedGame : games) {
-            if (selectedGame.getBlueWorm().getPlayer().getSession().equals(session)
-                    || selectedGame.getRedWorm().getPlayer().getSession().equals(session)) {
-                return selectedGame;
+            if (selectedGame.getBlueWorm() != null &&
+                selectedGame.getBlueWorm().getPlayer() != null &&
+                selectedGame.getBlueWorm().getPlayer().getSession() != null &&
+                selectedGame.getBlueWorm().getPlayer().getSession().equals(session)) {
+                    return selectedGame;
+            }
+            if (selectedGame.getRedWorm() != null &&
+                selectedGame.getRedWorm().getPlayer() != null &&
+                selectedGame.getRedWorm().getPlayer().getSession() != null &&
+                selectedGame.getRedWorm().getPlayer().getSession().equals(session)) {
+                    return selectedGame;
             }
         }
         return null;
