@@ -88,6 +88,13 @@
                     for (var i = 0; i < redcoords.length; i++) {
                         $('#g' + redcoords[i]).css('background-color', 'red');
                     }
+                    
+                    // Displays the Blue Worm as Blue
+                    var bluecoords = evt.data.blueWorm;
+
+                    for (var i = 0; i < redcoords.length; i++) {
+                        $('#g' + bluecoords[i]).css('background-color', 'cyan');
+                    }
                 };
             });
             //]]>

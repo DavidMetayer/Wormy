@@ -106,7 +106,7 @@ public class Games {
             PreparedStatement statement = connection.prepareStatement(sql);
             statement.setString(1, player.getName());
             statement.executeUpdate();
-
+            retrieveGames();
             for (Game selectedGame : games) {
                 if (selectedGame.getHost().equals(player.getName())) {
                     List<Integer> redSegments = new ArrayList<>();
@@ -133,7 +133,6 @@ public class Games {
             Logger.getLogger(Games.class.getName()).log(Level.SEVERE, null, ex);
             return "index";
         }
-        retrieveGames();
         return "game";
     }
 
