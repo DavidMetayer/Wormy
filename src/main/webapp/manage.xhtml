@@ -13,8 +13,12 @@
                 Account Management
             </h2>
             <h:form>
-                <h:inputText value="#{activePlayer.name}" />
-                <h:inputSecret value="#{activePlayer.password}" />
+                <h3>
+                    Username: <h:inputText value="#{activePlayer.name}" />
+                </h3>
+                <h3>
+                    Password: <h:inputSecret value="#{activePlayer.password}" />
+                </h3>
                 <h:commandButton value="Update" action="#{activePlayer.update(activePlayer.name, activePlayer.password, activePlayer.player)}" />
                 <h:commandButton value="Delete Account" action="confirm" />
                 <h:commandButton value="Cancel" action="index" />
