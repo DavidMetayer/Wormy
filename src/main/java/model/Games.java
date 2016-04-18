@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.Schedule;
-import javax.annotation.ManagedBean;
+import javax.faces.bean.ManagedBean;
 import javax.enterprise.context.ApplicationScoped;
 import javax.websocket.Session;
 
