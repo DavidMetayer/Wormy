@@ -192,13 +192,6 @@ public class Games {
         return "index";
     }
 
-    public boolean checkGame(Game game) {
-        if (game.getOpponent().equals("")) {
-            return true;
-        }
-        return false;
-    }
-
     // LEN : Absolutely confused here.
 
     public Game getGame(Session session) {

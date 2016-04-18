@@ -42,7 +42,6 @@ public class Server {
         // LEN : I may also require a "ready" prompt that will start the Game when both Players are ready. How could I do this?
         // -- Same as above. Make a message (similar to the key presses) that says "I am ready!" and change a flag in the Game object. When the Game object has 2 ready players, it can send messages out to them on their Session objects. This can be done from the Games class or the Game class.
         Game game = games.getGame(session);
-        System.out.println(game.getHost());
         Worm worm = game.getWorm(session);
         // LEN : Doing all the Game's processes here is the correct way to do it, right?
         // This class is mostly for receiving messages from a WebBrowser, a lot of your game logic will still be in the Game class (and the Worm class)
