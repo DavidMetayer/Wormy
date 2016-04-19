@@ -16,6 +16,9 @@ body {
 td h3 {
     text-align: right;
 }
-button {
+#loginButton input {
+    width: 100%;
+}
+#registerButton input {
     width: 100%;
 }
