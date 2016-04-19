@@ -16,3 +16,6 @@ body {
 td h3 {
     text-align: right;
 }
+button {
+    alignment-baseline: central;
+}
