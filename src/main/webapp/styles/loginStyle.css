@@ -16,6 +16,9 @@ body {
 td h3 {
     text-align: right;
 }
+#loginButton td {
+    alignment-baseline: central;
+}
 #loginButton input {
     width: 100%;
 }
