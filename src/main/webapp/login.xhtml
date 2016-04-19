@@ -13,14 +13,38 @@
             Log In
         </h2>
         <h:form>
-            <h3>
-                Username: <h:inputText value="#{activePlayer.name}" />
-            </h3>
-            <h3>
-                Password: <h:inputSecret value="#{activePlayer.password}" />
-            </h3>
-            <h:commandButton value="Log In" action="#{activePlayer.login()}" />
-            <h:commandButton value="Register" action="register" />
+            <table>
+                <tr id="name">
+                    <td>
+                        <h3>
+                            Username:
+                        </h3>
+                    </td>
+                    <td>
+                        <h3>
+                            <h:inputText value="#{activePlayer.name}" />
+                        </h3>
+                    </td>
+                </tr>
+                <tr id="password">
+                    <td>
+                        <h3>
+                            Password:<h:inputSecret value="#{activePlayer.password}" />
+                        </h3>
+                    </td>
+                    <td>
+                        <h:inputSecret value="#{activePlayer.password}" />
+                    </td>
+                </tr>
+                <tr id="buttons">
+                    <td>
+                        <h:commandButton value="Log In" action="#{activePlayer.login()}" />
+                    </td>
+                    <td>
+                        <h:commandButton value="Register" action="register" />
+                    </td>
+                </tr>
+            </table>
         </h:form>
     </h:body>
 </html>
