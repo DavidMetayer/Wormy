@@ -4,24 +4,13 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 */
 /* 
-    Created on : 24-Feb-2016, 10:38:50 AM
+    Created on : 19-Apr-2016, 11:36:28 AM
     Author     : c0641903
 */
+
 @import url(https://fonts.googleapis.com/css?family=Play);
 
 body {
     font-family: 'Play', sans-serif;
 }
-table {
-    background-color: grey;
-}
-td {
-    padding: 6px;
-    background-color: black;
-}
-#g0, #g1, #g2 {
-    background-color: red;
-}
-#g2497, #g2498, #g2499 {
-    background-color: cyan;
-}
+
