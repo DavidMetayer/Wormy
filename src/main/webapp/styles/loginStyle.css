@@ -13,3 +13,6 @@ and open the template in the editor.
 body {
     font-family: 'Play', sans-serif;
 }
+td h3 {
+    text-align: right;
+}
